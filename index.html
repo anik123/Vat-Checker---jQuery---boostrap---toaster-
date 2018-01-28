@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1">
+    <title>Hello World</title>
+
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <link href="css/bootstrap-theme.css" rel="stylesheet" />
+
+    <link href="css/bootstrap-drawer.css" rel="stylesheet" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <link href="css/jquery.toast.css" rel="stylesheet" />
+
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/drawer.js"></script>
+
+    <script src="js/jquery.toast.js"></script>
+    
+
+    
+    <script src="app.js" defer></script>
+    <style>
+        @font-face {
+            font-family: 'MyWebFont';
+            src: url('fonts/FontAwesome.otf'); /* IE9 Compat Modes */
+        }
+
+        body {
+            font-family: 'MyWebFont';
+        }
+
+        .header {
+            font-family: 'MyWebFont';
+            font-size: 20px;
+        }
+
+        .container-table {
+            height: 60%;
+        }
+
+        .container-table {
+            display: table;
+        }
+
+        .vertical-center-row {
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+        .modal-header {
+            padding: 9px 15px;
+            border-bottom: 1px solid #eee;
+            color: #eee;
+            background-color: #0480be;
+            -webkit-border-top-left-radius: 5px;
+            -webkit-border-top-right-radius: 5px;
+            -moz-border-radius-topleft: 5px;
+            -moz-border-radius-topright: 5px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+
+        .modal-footer {
+            padding: 9px 15px;
+            border-top: 1px solid #eee;
+            color: #eee;
+            background-color: #0480be;
+            -webkit-border-bottom-left-radius: 5px;
+            -webkit-border-bottom-right-radius: 5px;
+            -moz-border-radius-bottomleft: 5px;
+            -moz-border-radius-bottomright: 5px;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+        .modal-footer-success {
+            padding: 9px 15px;
+            border-top: 1px solid #eee;
+            color: #eee;
+            background-color: #5cb85c;
+            -webkit-border-bottom-left-radius: 5px;
+            -webkit-border-bottom-right-radius: 5px;
+            -moz-border-radius-bottomleft: 5px;
+            -moz-border-radius-bottomright: 5px;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+
+        #fade {
+            display: none;
+            position: absolute;
+            top: 0%;
+            left: 0%;
+            width: 100%;
+            height: 100%;
+            background-color: #ababab;
+            z-index: 1001;
+            -moz-opacity: 0.8;
+            opacity: .70;
+            filter: alpha(opacity=80);
+        }
+
+        #modal {
+            display: none;
+            position: absolute;
+            top: 45%;
+            left: 45%;
+            width: 60px;
+            height: 60px;
+            padding: 7px 0px 0px;
+            border: 3px solid #ababab;
+            box-shadow: 1px 1px 10px #ababab;
+            border-radius: 20px;
+            background-color: white;
+            z-index: 1002;
+            text-align: center;
+            overflow: auto;
+        }
+
+        .bs-callout {
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid #eee;
+            border-left-width: 5px;
+            border-radius: 3px;
+        }
+
+            .bs-callout h4 {
+                margin-top: 0;
+                margin-bottom: 5px;
+            }
+
+            .bs-callout p:last-child {
+                margin-bottom: 0;
+            }
+
+            .bs-callout code {
+                border-radius: 3px;
+            }
+
+            .bs-callout + .bs-callout {
+                margin-top: -5px;
+            }
+
+        .bs-callout-default {
+            border-left-color: #777;
+        }
+
+            .bs-callout-default h4 {
+                color: #777;
+            }
+
+        .bs-callout-primary {
+            border-left-color: #428bca;
+        }
+
+            .bs-callout-primary h4 {
+                color: #428bca;
+            }
+
+        .bs-callout-success {
+            border-left-color: #5cb85c;
+        }
+
+            .bs-callout-success h4 {
+                color: #5cb85c;
+            }
+
+        .bs-callout-danger {
+            border-left-color: #d9534f;
+        }
+
+            .bs-callout-danger h4 {
+                color: #d9534f;
+            }
+
+        .bs-callout-warning {
+            border-left-color: #f0ad4e;
+        }
+
+            .bs-callout-warning h4 {
+                color: #f0ad4e;
+            }
+
+        .bs-callout-info {
+            border-left-color: #5bc0de;
+        }
+
+            .bs-callout-info h4 {
+                color: #5bc0de;
+            }
+    </style>
+</head>
+<body class="has-drawer bg-warning">
+    <!-- add this class to your body for proper sizing -->
+    <div id="drawerVC" class="drawer dw-xs-10 dw-sm-6 dw-md-4 fold bg-warning" aria-labelledby="drawerExample">
+        <div class="drawer-controls">
+            <a href="#drawerVC" data-toggle="drawer" href="#drawerVC" aria-foldedopen="false" aria-controls="drawerVC">
+                <i id="circle" class="fa fa-bars"></i>
+                <!--<span class="fa-stack fa-2x">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-bars fa-stack-1x fa-inverse"></i>
+                </span>-->
+            </a>
+        </div>
+        <div class="drawer-contents bg-warning">
+            <div class="drawer-heading">
+                <h2 class="drawer-title">Vat Checker (VC)</h2>
+            </div>
+            <div class="drawer-body bg-warning">
+                <p>
+                    You can check BIN number of any company in bangladesh when they provide chalan.
+                </p>
+                <hr />
+            </div>
+            <ul class="drawer-nav bg-warning">
+                <li role="presentation" class="active" data-toggle="modal" data-target="#aboutModal">
+
+                    <a href="#drawerVC" data-toggle="drawer" href="#drawerVC" aria-foldedopen="false" aria-controls="drawerVC">
+                        About Me
+                    </a>
+                </li>
+                <li role="presentation" class="active" data-toggle="modal" data-target="#newsVat"><a href="#drawerVC" data-toggle="drawer" href="#drawerVC" aria-foldedopen="false" aria-controls="drawerVC">News</a></li>
+                <li role="presentation" class="active" data-toggle="modal" data-target="#reportModal"><a href="#drawerVC" data-toggle="drawer" href="#drawerVC" aria-foldedopen="false" aria-controls="drawerVC">QA & Report</a></li>
+            </ul>
+            <div class="drawer-footer bg-warning">
+                <small></small>
+            </div>
+        </div>
+    </div>
+    <div class='container'>
+        <div class="col-sm-12 text-center">
+
+            <!--<a href="#drawerExample" data-toggle="drawer" href="#drawerExample" aria-foldedopen="false" aria-controls="drawerExample">
+                <i class="fa fa-bars"></i>
+            </a>-->
+            <img src="img/bg_logo.png" style="padding-top: 5%" />
+            <!--<img src="icons/head.png" style="padding-top: 5%" />-->
+        </div>
+    </div>
+    <div class="container container-table">
+        <div class="row vertical-center-row">
+            <div class="panel bg-warning" style="font-family: 'MyWebFont';">
+                <div class="panel-body bg-success">
+                    <form>
+
+                        <div id="holdForm" class="form-group">
+                            <label for="binText">BIN Number </label> &nbsp;<i class="fa fa-question-circle" rel="tooltip" title="BIN number in bangladesh is 11 digit" id="blah"></i>
+                            <input type="number" class="form-control" id="binText" aria-describedby="inputError2Status" placeholder="Business Identification Number(BIN)">
+                            <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                            <span id="inputError2Status" class="sr-only">(error)</span>
+                        </div>
+
+                        <div class=" text-center">
+                            <button type="button" id="checkBIN" class="btn btn-primary">Submit</button>
+                        </div>
+                        <div id="fade"></div>
+                        <div id="modal">
+
+                            <img id="loader" src="img/loading.gif" />
+
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+            <p class="col-sm-12 text-center"><b>Source : <a href="http://www.dncrp.gov.bd/">dncrp.gov.bd</a></b></p>
+
+        </div>
+
+    </div>
+
+    <div class="modal fade" id="aboutModal" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Anik Islam Abhi</h4>
+                </div>
+                <div class="modal-body bg-warning">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4">
+                            <div class="thumbnail">
+                                <img src="img/anik.jpg" />
+
+                                <div class="caption">
+
+                                    <h3 class="text-center">Programmer</h3>
+                                    <hr />
+                                    <p>
+                                         <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Linkedin</a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <p>>&nbsp;<a href="https://goo.gl/ldXlgM">https://goo.gl/ldXlgM</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Stackoverflow</a>
+                </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>>&nbsp;<a href="http://goo.gl/Fpt1Uv">http://goo.gl/Fpt1Uv</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">Github</a>
+                </h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>>&nbsp;<a href="https://goo.gl/cyFhTO">https://goo.gl/cyFhTO</a></p>
+                </div>
+            </div>
+        </div>
+                                <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">Facebook</a>
+                </h4>
+            </div>
+            <div id="collapseFour" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>>&nbsp;<a href="https://goo.gl/PRaXuc">https://goo.gl/PRaXuc</a></p>
+                </div>
+            </div>
+        </div>
+                                <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">Github</a>
+                </h4>
+            </div>
+            <div id="collapseFive" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>>&nbsp;<a href="https://goo.gl/GDbnzk">https://goo.gl/GDbnzk</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+                                    </p>
+                                   
+                                </div>
+                            </div>
+                            
+                            
+                           
+                            
+                            
+                            
+                            
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="reportModal" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Details info</h4>
+                </div>
+                <div class="modal-body bg-warning">
+                    <div class="row">
+                        <div class="col-sm-12">
+
+                            <p>
+                                <b>একটি ভ্যাট চালানপত্র কীভাবে যাচাই করবেন?</b>
+                            </p>
+                            <p>
+                                সরকার ১ জানুয়ারি, ২০০৯ থেকে মেট্রোপলিটান শহর ও জেলা শহরের হোটেল, রেস্তোরা, মিষ্টির দোকান, ফার্নিচারের শোরুম, বিউটি পার্লার, কমিউনিটি সেন্টার, শপিং মলের দোকান, সুপারশপ, ডিপার্টমেন্টাল স্টোর, জেনারেল স্টোর, জুয়েলার্সে ইসিআর মেশিনের ব্যবহার বাধ্যতামূলক করেছে। ইসিআর জেনারেটেড চালান প্রদান না করে নীল রংয়ের চালান দিলে এটিই প্রমাণ করে তারা ভ্যাট ফাকি দিচ্ছেন। ভ্যাট ফাকি দেয়া দন্ডনীয় অপরাধ। তাই এই ১১ ধরণের ব্যবসার ক্ষেত্রে নীল চালানকে না বলুন। এসব ক্ষেত্রে কেবল ইসিআর জেনারেটেড চালান গ্রহণ করুন।
+                            </p>
+                            <p>
+                                একটি সঠিক ইসিআর জেনারেটেড ভ্যাট চালানে তিনটি তথ্য অবশ্যই থাকবে;
+                                <ol>
+                                    <li>ব্যবসায়ীর ১১ ডিজিটবিশিষ্ট ভ্যাট রেজিস্ট্রেশন নম্বর (১০ ডিজিট হলে বুঝে নিবেন এটি ভুয়া)।</li>
+                                    <li>চালানপত্র এর সিরিয়াল নম্বর, তারিখ, সময়( সিরিয়াল নম্বর না থাকার মানে দিনশেষে এই চালানের তথ্য মুছে ফেলা হবে)।</li>
+                                    <li>সরকার নির্ধারিত হারে ভ্যাটের পরিমাণ। এছাড়া ইসিআর মেশিনের নম্বরও থাকা দরকার।</li>
+                                </ol>
+                            </p>
+                            <p>
+                                ইসিআর জেনারেটেড চালানে উপরের বৈশিষ্ট্যগুলি না থাকলে আপনি যা করতে পারেন:
+                                <ol>
+                                    <li>ভ্যাট নিবন্ধনপত্র দেখতে চান।</li>
+                                    <li>ভ্যাট কমিশনারেট কর্তৃক প্রদত্ত ইসিআর মেশিন ব্যবহারের অনুমতিপত্র দেখতে চান।</li>
+                                    <li>ইসিআর মেশিনে পূর্ববতী দিনগুলির বিক্রয়ের হিসেব আছে কিনা দেখতে চান।</li>
+                                </ol>
+
+                            </p>
+                            <p>
+                                কোন সেলসম্যান মূসক চালান প্রদানে কোনরূপ অসহযোগিতা কিংবা দূর্ব্যবহার করলে সংশ্লিস্ট মূসক কমিশনারেটে ইমেইলে (বন্ধনীতে প্রদর্শিত) অথবা ফেসবুক পেজে <a href="https://www.facebook.com/dhakanorthvat"></a> অভিযোগ করবেন।
+                            </p>
+                            <ul>
+                                <li>ঢাকা পশ্চিমের মূসক নিবন্ধন নম্বর ১৭ (dhakawestcomm@yahoo.com)</li>
+                                <li>ঢাকা উত্তর ১৮(commdkn@nbr.gov.bd, commdkn@yahoo.com)</li>
+                                <li>ঢাকা দক্ষিণ ১৯(cevdhksouth@yahoo.com)</li>
+                                <li>ঢাকা পূর্ব ২১(vatdhakaeast@yahoo.com)</li>
+                                <li>রংপুর ১১(rangpurvat@nbr.gov.bd)</li>
+                                <li>রাজশাহী ১২(cevraj93@yahoo.com)</li>
+                                <li>যশোর ১৪(jessorecustoms@gmail.com)</li>
+                                <li>খুলনা ১৫(khulnavathq@gmail.com)</li>
+                                <li>সিলেট ২২(sylhetcustoms@yahoo.com)</li>
+                                <li>কুমিল্লা ২৩(cevccomilla@nbr.gov.bd)</li>
+                                <li>চট্টগ্রাম ২৪(ccevatctg@gmail.com)</li>
+                            </ul>
+                            <p>
+                                মূসক নিবন্ধন নম্বরের প্রথম দুই ডিজিট দেখে বুঝে নিন প্রতিষ্ঠানটি কোন কমিশনারেটের অন্তভূর্ক্ত।
+                            </p>
+                            <p><b><a href="http://www.dncrp.gov.bd/contactform.php">Report Form</a></b></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="newsVat" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+
+                <div class="modal-body bg-warning">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p>
+                                Source : &nbsp;<a href="http://www.banglanews24.com/fullnews/bn/431903.html">Banglanews</a>
+                            </p>
+                            <p>
+                                মামলা (অভিযোগ) করলে অর্থ খরচ হয়, এটা সবারই জানা। কিন্তু মামলা করে অর্থ পাওয়া যায়- এটা ক’জন জানেন? যারা জানেন তাদের ১৬৮ জন মামলা ঠুকেছিলেন ক্ষতিপূরণ চেয়ে। মামলার রায়ে সবাই মিলে যে অর্থ পেয়েছেন তার পরিমাণ ৩ লক্ষ, ১২ হাজার ৭৫০ টাকা।
+                            </p>
+                            <p>
+
+
+                                এদের একজন শারমিন সুলতানা। বাংলানিউজকে তিনি বলেন, আমি পল্টন শর্মা হাউজ থেকে একটা পানি কিনি। যার দাম (এমআরপি) ১৫ টাকা। ওই প্রতিষ্ঠান আমার কাছ থেকে ২৫ টাকা দাম রেখেছিলো। আমি তাদের বিরুদ্ধে ভোক্তা অধিকার সংরক্ষণ আইনে জাতীয় ভোক্তা অধিকার সংরক্ষণ অধিদপ্তরের মহাপরিচালক বরাবর অভিযোগ করি। অধিদপ্তর তাদের পাঁচ হাজার টাকা জরিমানা করে, যার ২৫ শতাংশ (বারশত পঞ্চশ টাকা) আমি পেয়েছি।
+                            </p>
+                            <p>
+
+
+                                আইন অনুযায়ী, কোনো উৎপাদনকারি/সরবরাহকারী/বিক্রেতা নির্ধারিত মূল্যের চেযে অধিক মূল্যে কোনো পণ্য বা ঔষধ বিক্রি, ওজনে কারচুপি, মেয়াদ উত্তীর্ণ পণ্য বিক্রি, পণ্যের মোড়কে খুচরা মূল্য ও মেয়াদ উত্তীর্ণের তারিখ উল্লেখ না করলে এবং আইনের বাধ্যবাধকতা অমান্য করে দোকান বা প্রতিষ্ঠানে পণ্যের মূল্য তালিকা প্রদর্শন না করলে যে কোনো ক্রেতা ‘ভোক্তা অধিকার সংরক্ষণ আইন, ২০০৯’-এর বলে সংশ্লিষ্ট ব্যক্তি বা প্রতিষ্ঠানের বিরুদ্ধে অভিযোগ দায়ের করতে পারবেন।
+
+                            </p>
+                            <p>
+
+
+                                এসব অভিযোগ জাতীয় ভোক্তা অধিকার সংরক্ষণ অধিদপ্তরের মহাপরিচালক, ৭ বিভাগীয় উপ-পরিচালক, প্রত্যেক জেলার জেলা ম্যাজিস্ট্রেট বরাবরে করতে হবে। কারণ উদ্ভবের ৩০ দিনের মধ্যে লিখিত অভিযোগ সরাসরি বা ফ্যাক্স/ই-মেইল/ওয়েব সাইটে করা যাবে।
+                            </p>
+                            <p>
+                                জাতীয় ভোক্তা অধিকার সংরক্ষণ অধিদপ্তরের সহকারী পরিচালক (তদন্ত) মাসুম আরেফিন বাংলানিউজকে বলেন, ২০১০ সালের ৬ এপ্রিল আমাদের মহাপরিচালকের বাজার তদারকির মাধ্যমে আনুষ্ঠানিকভাবে এই আইন (ভোক্তা অধিকার সংরক্ষণ আইন, ২০০৯) বাস্তবায়ন শুরু করি। গত মাসের (সেপ্টেম্বর) ২২ তারিখ পর্যন্ত ৫৩ হাজার ৬১০টিরও অধিক বিভিন্ন বাণিজ্যিক প্রতিষ্ঠানে তদারকি কার্যক্রম পরিচালনা করেছি।
+                            </p>
+                            <p>
+
+
+                                বিভিন্ন ধারায় দোষি সাব্যস্ত করে ১৩ হাজার ৬৭৩টি বাণিজ্যিক প্রতিষ্ঠানকে ১১ কোটি ৮ লক্ষ ১৫ হাজার ২৫০ টাকা জরিমানা করা হয়েছে। এগুলোর মধ্যে ১৬৮ জন অভিযোগকারিকে জরিমানার ২৫ শতাংশ হিসেবে ৪ লক্ষ ১২ হাজার ৭৫০ টাকা দেওয়া হয়েছে। অবশিষ্ট টাকা সরকারি কোষাগারে জমা দেওয়া হয়েছে।
+                            </p>
+                            <p>
+
+
+                                তিনি বলেন, পণ্যের মূল্য গোপন করে নতুন মূল্যে বিক্রি বা বর্ধিত মূল্যে বিক্রি হচ্ছে। অধিকাংশ ক্ষেত্রে ভোক্তারা কোনো প্রতিকার চান না। নীরবে সয়ে যাচ্ছেন। অথচ আমরা কিন্তু ভোক্তা অধিকার সচেতনতা বিষয়ে হরহামেশা এসএমএস, পত্রিকায় বিজ্ঞাপনসহ অনেক প্রচারণা চালাচ্ছি। অনেকে আবার আমাদের কাছে অভিযোগ করছেন, আমরা ব্যবস্থা নিচ্ছি। তারা প্রতিকার পাচ্ছে।
+                            </p>
+                            <p>
+
+
+                                মাসুম আরেফিন বলেন, আমাদের আইনটি আপোসযোগ্য। ত‍াই ভোক্তা লাভবান হলে আমরা আপষ করে দিই।
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="messageModal" role="dialog" style="margin-top: 5%">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-body bg-warning">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div id="name" class="bs-callout bs-callout-success" id="callout-focus-demo1">
+                                <h4>Company name</h4>
+                                <p>
+
+                                </p>
+                            </div>
+                            <div id="address" class="bs-callout bs-callout-success" id="callout-focus-demo2">
+                                <h4>Address : </h4>
+                                <p>
+
+                                </p>
+                            </div>
+                            <div id="noData" class="bs-callout bs-callout-danger" id="callout-focus-demo">
+                                <h4>Sorry :( </h4>
+                                <p>No result found.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer-success text-center">
+                    <div class="col-sm-12 text-center">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <script src="js/script.js"></script>
+</body>
+</html>
